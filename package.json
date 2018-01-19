@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/ajhollowayvrm/TrivPop/issues"
   },
-  "homepage": "https://github.com/ajhollowayvrm/TrivPop#readme"
+  "homepage": "https://github.com/ajhollowayvrm/TrivPop#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
 }
