@@ -47,4 +47,13 @@ body {
     border-radius: 5px;
     padding: 20px;
     font-size: 150%;
+    transition: transform .2s;
+  }
+
+  .box:hover {
+    transform: scale(1.2);
+  }
+
+  .prehide {
+      display: none;
   }

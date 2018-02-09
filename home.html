@@ -6,18 +6,43 @@
         <title>TrivPip - A Trivia game</title>
     </head>
     <body>
-        <div id='main-container'>
+        <div id='main-container' tile='main' tileview='yes'>
             <h2 id='main-title'>TrivPop</h2>
             <h4 id='sub-title'>The trivia game with an attitude!</h4>
             <br><br><br><br><br><br><br>
             <div class="wrapper">
                 <div></div>
-                <div class="box" id="Log_In_Btn">Log In</div>
-                <div class="box" id="Sign_Up_Btn">Sign Up</div>
+                <div class="box hover" id="Log_In_Btn">Log In</div>
+                <div class="box hover" id="Sign_Up_Btn">Sign Up</div>
+                <div></div>
+            </div>
+        </div>
+
+        <div id='main-container' tile='login' tileview='no' class='prehide'>
+            <h2 id='main-title'>Log In</h2>
+            <h4 id='sub-title'>The trivia game with an attitude!</h4>
+            <br><br><br><br><br><br><br>
+            <div class="wrapper">
+                <div></div>
+                <div class="box hover" id="Log_In_Btn">Log In</div>
+                <div class="box hover" id="Sign_Up_Btn">Sign Up</div>
+                <div></div>
+            </div>
+        </div>
+
+        <div id='main-container' tile='signup' tileview='no' class='prehide'>
+            <h2 id='main-title'>Sign Up</h2>
+            <h4 id='sub-title'>The trivia game with an attitude!</h4>
+            <br><br><br><br><br><br><br>
+            <div class="wrapper">
+                <div></div>
+                <div class="box hover" id="Log_In_Btn">Log In</div>
+                <div class="box hover" id="Sign_Up_Btn">Sign Up</div>
                 <div></div>
             </div>
         </div>
     </body>
     <!-- JS at the bottom for performance -->
+    <script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="/js/user_op.js"></script>
 </html>
