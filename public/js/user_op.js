@@ -18,26 +18,41 @@ function signUp() {
 }
 
 function moveToTile(tile_name) {
-    $(getCurrentTile()).fadeOut().attr({'tileview':'no'});
-    $("[tile='" + tile_name + "']").fadeIn().attr({'tileview':'yes'})
+    $(getCurrentTile()).hideTile();
+    $("[tile='" + tile_name + "']").showTile()
 }
 
 function getCurrentTile() {
-    $('#main-container').each(function() {
+    return $('#main-container').each(function() {
         if($(this).tileview() == 'yes')
-            return this;
+            return this
     })
 }
 
 
 //----------------------Utilities--------------------//
 
-//Custom jQuery function to get the tile and tileview values.
-jQuery.fn.extend({
-    tile: function() {
+//Custom jQuery functions
+(function($) {
+    $.fn.tile = function() {
         return this.attr('tile');
-    },
-    tileview: function() {
+    };
+}(jQuery));
+
+(function($) {
+    $.fn.tileview = function() {
         return this.attr('tileview');
-    }
-})
+    };
+}(jQuery));
+
+(function($) {
+    $.fn.showTile = function() {
+        this.addClass('coming').attr({'tileview':'yes'});
+    };
+}(jQuery));
+
+(function($) {
+    $.fn.hideTile = function() {
+        this.addClass('leaving').attr({'tileview':'no'}).fadeOut('slow');
+    };
+}(jQuery));

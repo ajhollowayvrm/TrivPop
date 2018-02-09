@@ -15,6 +15,16 @@ body {
     right: 0;
     bottom: 30%;
     background: lightseagreen;
+    transition: all 3.0s ease;
+}
+
+#main-container.leaving {
+    transform: translateX(-2000px);
+}
+
+#main-container.coming {
+    
+    transform: translateX(100px);
 }
 
 #main-container h1,h2,h3,h4,h5,h6,p {
@@ -33,6 +43,10 @@ body {
     margin-top: 1px;
 }
 
+#main-container[tile='login'] {
+    background-color: lightsalmon;
+}
+
 .wrapper {
     display: grid;
     grid-template-columns: 50px 300px 300px 50px;
@@ -42,16 +56,22 @@ body {
   }
 
   .box {
-    background-color: #444;
+    background: #444;
     color: #fff;
+    border: 2px solid black;
     border-radius: 5px;
     padding: 20px;
     font-size: 150%;
-    transition: transform .2s;
+    transition: all .2s ease;
   }
 
   .box:hover {
     transform: scale(1.2);
+  }
+
+  .box:active {
+    transition: all .1s ease;
+    transform: scale(1.1);
   }
 
   .prehide {
