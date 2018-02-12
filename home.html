@@ -6,43 +6,80 @@
         <title>TrivPip - A Trivia game</title>
     </head>
     <body>
-        <div id='main-container' tile='main' tileview='yes'>
+        <div class='main-container' tile='main' tileview='yes' tile-index="0">
             <h2 id='main-title'>TrivPop</h2>
             <h4 id='sub-title'>The trivia game with an attitude!</h4>
             <br><br><br><br><br><br><br>
-            <div class="wrapper">
+            <div class="main-wrapper">
                 <div></div>
-                <div class="box hover" id="Log_In_Btn">Log In</div>
+                <div class="box hover" id="Log_In">Log In</div>
                 <div class="box hover" id="Sign_Up_Btn">Sign Up</div>
                 <div></div>
             </div>
         </div>
 
-        <div id='main-container' tile='login' tileview='no' class='prehide'>
-            <h2 id='main-title'>Log In</h2>
-            <h4 id='sub-title'>The trivia game with an attitude!</h4>
-            <br><br><br><br><br><br><br>
-            <div class="wrapper">
+        <div class='main-container prehide' tile='login' tileview='no' tile-index="1">
+            <p class='backArrow'>   <i class="fas fa-arrow-left fa-2x"></i></p>
+            <br><br><br>
+            <div class="login-wrapper">
                 <div></div>
-                <div class="box hover" id="Log_In_Btn">Log In</div>
-                <div class="box hover" id="Sign_Up_Btn">Sign Up</div>
+                <div id='loginForm' class='login-wrapper'>
+                    <p>Email</p><input type="email" name="email" id="loginEmail" placeholder="Enter your email here.">
+                    <br>
+                    <p>Password</p><input type="password" name="pwd" id="loginPwd" placeholder="Enter your password here.">
+                    <br>
+                    <input type="checkbox" id='showBox'>Show Password</input>
+                    <br><br><br><br>
+                    <div class='box login-box' id="Log_In_Btn">Log In</div>               
+                </div>
                 <div></div>
             </div>
         </div>
 
-        <div id='main-container' tile='signup' tileview='no' class='prehide'>
-            <h2 id='main-title'>Sign Up</h2>
-            <h4 id='sub-title'>The trivia game with an attitude!</h4>
-            <br><br><br><br><br><br><br>
-            <div class="wrapper">
+        <div class='main-container prehide' tile='signUp' tileview='no' tile-index="2">
+            <p class='backArrow'>   <i class="fas fa-arrow-left fa-2x"></i></p>
+            <br><br><br>
+            <div class="login-wrapper">
                 <div></div>
-                <div class="box hover" id="Log_In_Btn">Log In</div>
-                <div class="box hover" id="Sign_Up_Btn">Sign Up</div>
+                <div id='signUpForm'>
+                    <p>Email</p><input type="email" name="email" id="signUpEmail" placeholder="Enter your email here.">
+                    <br>
+                    <p>Password</p><input type="password" name="pwd" id="signUpPwd" placeholder="Enter your password here.">
+                    <br>
+                    <p>Favorite Catagory</p>
+                        <select id='cat'>
+                            <option value='general'>General Knowledge</option>
+                            <option value='movies'>Movies</option>
+                            <option value='vgames'>Video Games</option>
+                            <option value='comp'>Computers</option>
+                            <option value='tv'>TV Shows</option>
+                            <option value='sports'>Sports</option>
+                            <option value='myth'>Mythology</option>
+                        </select>
+                    <br>
+                    <p>Difficulty</p>
+                        <select id='diff'>
+                            <option value='easy'>Not That Hard</option>
+                            <option value='med'>A Little Harder</option>
+                            <option value='hard'>Pretty Dang Hard</option>
+                        </select>
+                    <br>
+                    <p>Preferred Type</p>
+                        <select id='type'>
+                            <option value='mc'>Multiple Choice</option>
+                            <option value='tf'>True/False</option>
+                            <option value='both'>Both/Don't Care</option>
+                        </select>
+                    <br><br><br>
+                    <div class='box login-box'>Sign Up</div>               
+                </div>
                 <div></div>
             </div>
         </div>
     </body>
     <!-- JS at the bottom for performance -->
+    <script type="text/javascript" src="/js/config.js"></script>
     <script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="/js/fontawesome-all.min.js"></script>
     <script type="text/javascript" src="/js/user_op.js"></script>
 </html>
