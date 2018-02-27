@@ -7,8 +7,11 @@ $(document).ready(function() {
     $('#Log_In_Btn').click(function() {
         login();
     })
-    $('#Sign_Up_Btn').click(function() {
+    $('#Sign_Up').click(function() {
         moveToTile('signUp');
+    });
+    $('#Sign_Up_Btn').click(function() {
+        signUp();
     });
     $('#showBox').click(function() {
         togglePwdVisibility();
@@ -22,14 +25,24 @@ $(document).ready(function() {
 class User {
     constructor(email, pwd, perf_obj, admin) {
 
-        if(arguments.lenth > 2) {
+        this.authenticated = 0;
+        this.email = null;
+        this.pref_obj = null;
 
-        }
-        this.auth_obj = {
-            "email":email,
-            "pwd":pwd
+        if(arguments.lenth > 2) {
+            this.newUser(email,pwd,pref_obj,admin)
+            this.authenticate();
+        } else {
+            this.auth_obj = {
+                "email":email,
+                "pwd":pwd
+            }
+            this.email = email;
+
+            this.authenticate();
         }
     }
+
 
     authenticate() {
 
@@ -56,6 +69,11 @@ class User {
                     return;
                 }
 
+                this.authenticated = true;
+                this.email = auth_obj.email;
+    
+                createAuthCookie();
+                
             },
             error: function(e) {
                 alert('Error: ' + e);
@@ -64,7 +82,52 @@ class User {
     }
 
     newUser(email, pwd, pref_obj, admin) {
+        if(this.auth_obj.email == "" || this.auth_obj.email == undefined) {
+            alert("Please enter your email");
+            return;
+        }
+        else if(this.auth_obj.pwd == "" || this.auth_obj.pwd == undefined) {
+            alert("Please enter your password");
+            return;
+        }
 
+        $.ajax({
+            type: "POST",
+            url: config.authenticate_user,
+            headers: {
+                'Content-type':"application/json"
+            },
+            data: JSON.stringify(this.auth_obj),
+            crossOrgin: true,
+            success: function(res) {
+                if(res.errorMessage) {
+                    alert(res.errorMessage);
+                    return;
+                }
+
+                this.authenticated = true;
+                this.email = auth_obj.email;
+    
+                createAuthCookie();
+                
+            },
+            error: function(e) {
+                alert('Error: ' + e);
+            }
+        })
+    }
+
+    createAuthCookie() {
+        if(this.authenticated) {
+            setCookie('email',this.email, 3);
+            setCookie('admin','0',3);
+        }
+
+    }
+
+    logout() {
+        eraseCookie('email');
+        eraseCookie('admin');
     }
 }
 
@@ -85,12 +148,27 @@ function login() {
     user.authenticate(); 
 }
 
+function signUp() {
+    var user = new User($('#loginEmail').val(), $('#loginPwd').val(), getPerfObj(), 'false');
+
+}
+
 
 function moveToTile(tile_name) {
     $.getCurrentTile().hideTile();
     $.getTile(tile_name).showTile();
 }
 
+function getPerfObj() {
+    var vals = $('#signUpForm').children().map(function() {if(this.value != "") return this.value })
+
+    return {
+        "pref#ques":vals[0],
+        "prefcat":vals[1],
+        "prefdiff":vals[2],
+        "preftype":vals[3]
+    }
+}
 
 //----------------------Utilities--------------------//
 
@@ -128,3 +206,27 @@ jQuery.getCurrentTile = function(tile_name) {
         $(this).fadeOut('slow').attr({'tileview':'no'});
 }
 }(jQuery));
+
+
+function setCookie(name,value,hours) {
+    var expires = "";
+    if (hours) {
+        var date = new Date();
+        date.setTime(date.getTime() + (hours*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+}
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+function eraseCookie(name) {   
+    document.cookie = name+'=; Max-Age=-99999999;';  
+}

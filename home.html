@@ -13,7 +13,7 @@
             <div class="main-wrapper">
                 <div></div>
                 <div class="box hover" id="Log_In">Log In</div>
-                <div class="box hover" id="Sign_Up_Btn">Sign Up</div>
+                <div class="box hover" id="Sign_Up">Sign Up</div>
                 <div></div>
             </div>
         </div>
@@ -32,6 +32,7 @@
                     <br><br><br><br>
                     <div class='box login-box' id="Log_In_Btn">Log In</div>               
                 </div>
+                <br><br>
                 <div></div>
             </div>
         </div>
@@ -45,6 +46,14 @@
                     <p>Email</p><input type="email" name="email" id="signUpEmail" placeholder="Enter your email here.">
                     <br>
                     <p>Password</p><input type="password" name="pwd" id="signUpPwd" placeholder="Enter your password here.">
+                    <br>
+                    <p>Preferred Number of Questions</p>
+                        <select id="noOfQues">
+                            <option value='5'>5</option>
+                            <option valaue='10'>10</option>
+                            <option value='15'>15</option>
+                            <option value='20'>20</option>
+                        </select>
                     <br>
                     <p>Favorite Catagory</p>
                         <select id='cat'>
@@ -71,7 +80,7 @@
                             <option value='both'>Both/Don't Care</option>
                         </select>
                     <br><br><br>
-                    <div class='box login-box'>Sign Up</div>               
+                    <div class='box login-box' id='Sign_Up_Btn'>Sign Up</div>               
                 </div>
                 <div></div>
             </div>
