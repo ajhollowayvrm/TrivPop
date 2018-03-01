@@ -67,7 +67,7 @@ div.main-container[tile="signUp"] h1,h2,h3,h4,h5,h6,p {
 
 .backArrow:active {
     transition: all .1s ease;
-    transform: scale(1.1);
+    transform: scale(1.0);
   }
 
 
@@ -110,7 +110,7 @@ div.main-container[tile="signUp"] h1,h2,h3,h4,h5,h6,p {
 
   .box:active {
     transition: all .1s ease;
-    transform: scale(1.1);
+    transform: scale(1.0);
   }
 
 

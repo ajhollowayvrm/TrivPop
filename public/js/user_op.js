@@ -21,117 +21,6 @@ $(document).ready(function() {
     })
 })
 
-
-class User {
-    constructor(email, pwd, perf_obj, admin) {
-
-        this.authenticated = 0;
-        this.email = null;
-        this.pref_obj = null;
-
-        if(arguments.lenth > 2) {
-            this.newUser(email,pwd,pref_obj,admin)
-            this.authenticate();
-        } else {
-            this.auth_obj = {
-                "email":email,
-                "pwd":pwd
-            }
-            this.email = email;
-
-            this.authenticate();
-        }
-    }
-
-
-    authenticate() {
-
-        if(this.auth_obj.email == "" || this.auth_obj.email == undefined) {
-            alert("Please enter your email");
-            return;
-        }
-        else if(this.auth_obj.pwd == "" || this.auth_obj.pwd == undefined) {
-            alert("Please enter your password");
-            return;
-        }
-
-        $.ajax({
-            type: "POST",
-            url: config.authenticate_user,
-            headers: {
-                'Content-type':"application/json"
-            },
-            data: JSON.stringify(this.auth_obj),
-            crossOrgin: true,
-            success: function(res) {
-                if(res.errorMessage) {
-                    alert(res.errorMessage);
-                    return;
-                }
-
-                this.authenticated = true;
-                this.email = auth_obj.email;
-    
-                createAuthCookie();
-                
-            },
-            error: function(e) {
-                alert('Error: ' + e);
-            }
-        })
-    }
-
-    newUser(email, pwd, pref_obj, admin) {
-        if(this.auth_obj.email == "" || this.auth_obj.email == undefined) {
-            alert("Please enter your email");
-            return;
-        }
-        else if(this.auth_obj.pwd == "" || this.auth_obj.pwd == undefined) {
-            alert("Please enter your password");
-            return;
-        }
-
-        $.ajax({
-            type: "POST",
-            url: config.authenticate_user,
-            headers: {
-                'Content-type':"application/json"
-            },
-            data: JSON.stringify(this.auth_obj),
-            crossOrgin: true,
-            success: function(res) {
-                if(res.errorMessage) {
-                    alert(res.errorMessage);
-                    return;
-                }
-
-                this.authenticated = true;
-                this.email = auth_obj.email;
-    
-                createAuthCookie();
-                
-            },
-            error: function(e) {
-                alert('Error: ' + e);
-            }
-        })
-    }
-
-    createAuthCookie() {
-        if(this.authenticated) {
-            setCookie('email',this.email, 3);
-            setCookie('admin','0',3);
-        }
-
-    }
-
-    logout() {
-        eraseCookie('email');
-        eraseCookie('admin');
-    }
-}
-
-
 //Login Functions
 function togglePwdVisibility() {
     var pwd_field = document.getElementById("pwd");
@@ -149,8 +38,11 @@ function login() {
 }
 
 function signUp() {
-    var user = new User($('#loginEmail').val(), $('#loginPwd').val(), getPerfObj(), 'false');
-
+    $('#Sign_Up_Btn').startLoading();
+    var user = new User();
+    user.initUser($('#signUpEmail').val(), $('#signUpPwd').val(), getPrefObj(), 'false')
+    //TO DO: Make sure email is unique. 
+    setTimeout(() => {$('#Sign_Up_Btn').stopLoading();}, 5000)
 }
 
 
@@ -159,14 +51,14 @@ function moveToTile(tile_name) {
     $.getTile(tile_name).showTile();
 }
 
-function getPerfObj() {
+function getPrefObj() {
     var vals = $('#signUpForm').children().map(function() {if(this.value != "") return this.value })
 
     return {
-        "pref#ques":vals[0],
-        "prefcat":vals[1],
-        "prefdiff":vals[2],
-        "preftype":vals[3]
+        "pref#ques":vals[2],
+        "prefcat":vals[3],
+        "prefdiff":vals[4],
+        "preftype":vals[5]
     }
 }
 
@@ -193,7 +85,7 @@ jQuery.getTile = function(tile_name) {
 
 jQuery.getCurrentTile = function(tile_name) {
     return $($("div[tileview='yes']")[0])
-}; 
+};
 
 (function($) {
     $.fn.showTile = function() {
@@ -207,6 +99,19 @@ jQuery.getCurrentTile = function(tile_name) {
 }
 }(jQuery));
 
+(function($) {
+    $.fn.startLoading = function() {
+        $(this).attr('name',$(this).html());
+        $(this).html('<i class="fas fa-cog fa-spin"></i>');
+}
+}(jQuery));
+
+(function($) {
+    $.fn.stopLoading = function() {
+        $(this).html($(this).attr('name'));
+
+}
+}(jQuery));
 
 function setCookie(name,value,hours) {
     var expires = "";
