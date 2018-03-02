@@ -1,19 +1,36 @@
 class User {
-    constructor() {
+    constructor(email, auth_obj, pref_obj, admin) {
+        pref_obj = pref_obj || null;
+        admin = admin || null;
+
+        this.admin = 0;
         this.authenticated = 0;
         this.email = null;
         this.pref_obj = null;
         this.auth_obj = null;
+
+        if(pref_obj == null || admin == null) {
+            this.auth_obj = auth_obj;
+            this.authenticate();
+        } else {
+            this.email = email;
+            this.pref_obj = pref_obj;
+            this.auth_obj = auth_obj;
+            this.admin = admin || 0;
+            this.initUser()
+        }
+
+
     }
 
 
     authenticate() {
         if(this.auth_obj.email == "" || this.auth_obj.email == undefined) {
-            alert("Please enter your email");
+            console.error("User is missing an email.");
             return;
         }
         else if(this.auth_obj.pwd == "" || this.auth_obj.pwd == undefined) {
-            alert("Please enter your password");
+            console.error("User is missing a password.");
             return;
         }
 
@@ -25,28 +42,29 @@ class User {
             },
             data: JSON.stringify(this.auth_obj),
             crossOrgin: true,
-            success: function(res) {
+            success: (res) => {
                 if(res.errorMessage) {
-                    alert("Error in Authenticate: " + res.errorMessage);
+                    console.error("Error in Authenticate: " + res.errorMessage);
                     return;
                 }
                 this.authenticated = true;
-                this.email = auth_obj.email;   
+                console.log(this)
+                this.email = this.auth_obj['email'];   
                 this.createAuthCookie();             
             },
             error: function(e) {
-                alert('Error in Authenticate: ' + e);
+                console.error('Error in Authenticate: ' + e);
             }
         })
     }
 
-    initUser(email, pwd, pref_obj, admin) {
-        if(email == "" || email == undefined) {
-            alert("Please enter your email");
+    initUser() {
+        if(this.email == "" || this.email == undefined) {
+            console.error("User is missing an email.");
             return;
         }
-        else if(pwd == "" || pwd == undefined) {
-            alert("Please enter your password");
+        else if(this.auth_obj['pwd'] == "" || this.auth_obj['pwd'] == undefined) {
+            console.error("User is missing a Password.");
             return;
         }
         
@@ -65,13 +83,13 @@ class User {
         //TO DO: Check if email is unique. If not, return. 
 
         let register_obj = {
-            "email":email,
-            "pwd":pwd,
-            "pref#ques":pref_obj['pref#ques'],
-            "prefcat":pref_obj['prefcat'],
-            "prefdiff":pref_obj['prefdiff'],
-            "preftype":pref_obj['preftype'],
-            "admin":admin
+            "email":this.email,
+            "pwd":this.auth_obj['pwd'],
+            "pref#ques":this.pref_obj['pref#ques'],
+            "prefcat":this.pref_obj['prefcat'],
+            "prefdiff":this.pref_obj['prefdiff'],
+            "preftype":this. pref_obj['preftype'],
+            "admin":this.admin
         }
 
         $.ajax({
@@ -84,21 +102,13 @@ class User {
             crossOrgin: true,
             success: (res) => {
                 if(res.errorMessage) {
-                    alert("Error in InitUser: " + res.errorMessage);
+                    console.error("Error in InitUser: " + res.errorMessage);
                     return;
                 }
-
-                this.email = email;
-                this.pref_obj = pref_obj;
-                this.auth_obj = {
-                    "email":email,
-                    "pwd":pwd
-                }
-
                 this.authenticate();
             },
             error: function(e) {
-                alert('Error in InitUser: ' + e);
+                console.error('Error in InitUser: ' + e);
             }
         })
     }

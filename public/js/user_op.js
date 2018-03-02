@@ -39,8 +39,7 @@ function login() {
 
 function signUp() {
     $('#Sign_Up_Btn').startLoading();
-    var user = new User();
-    user.initUser($('#signUpEmail').val(), $('#signUpPwd').val(), getPrefObj(), 'false')
+    var user = new User($('#signUpEmail').val(),{"email":$('#signUpEmail').val(), "pwd":$('#signUpPwd').val()}, getPrefObj(), 'false');
     //TO DO: Make sure email is unique. 
     setTimeout(() => {$('#Sign_Up_Btn').stopLoading();}, 5000)
 }
