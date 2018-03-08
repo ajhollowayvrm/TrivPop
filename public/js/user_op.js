@@ -23,7 +23,7 @@ $(document).ready(function() {
 
 //Login Functions
 function togglePwdVisibility() {
-    var pwd_field = document.getElementById("pwd");
+    var pwd_field = document.getElementById("loginPwd");
     if (pwd_field.type === "password") {
         pwd_field.type = "text";
     } else {
@@ -32,16 +32,19 @@ function togglePwdVisibility() {
 }
 
 function login() {
-    var user = new User($('#loginEmail').val(), $('#loginPwd').val())
-    console.log(user);
-    user.authenticate(); 
+    var user = new User($('#loginEmail').val(), getAuthObj()) 
+    if(user.authenticated) {
+        $.moveToTile('mainGame');
+    }
 }
 
 function signUp() {
     $('#Sign_Up_Btn').startLoading();
-    var user = new User($('#signUpEmail').val(),{"email":$('#signUpEmail').val(), "pwd":$('#signUpPwd').val()}, getPrefObj(), 'false');
+    var user = new User($('#signUpEmail').val(),getAuthObj(), getPrefObj(), 'false');
     //TO DO: Make sure email is unique. 
     setTimeout(() => {$('#Sign_Up_Btn').stopLoading();}, 5000)
+
+    
 }
 
 
@@ -59,6 +62,24 @@ function getPrefObj() {
         "prefdiff":vals[4],
         "preftype":vals[5]
     }
+}
+
+function getAuthObj() {
+
+    switch($.getCurrentTile().getTileName()) {
+        case 'login':
+            return {"email":$('#loginEmail').val(), "pwd":$('#loginPwd').val()};
+            break;
+
+        case 'signUp':
+            return {"email":$('#signUpEmail').val(), "pwd":$('#signUpPwd').val()}
+            break;
+
+        default:
+            console.error('Specified Tile does not have defined auth object.');
+            break;
+    }
+
 }
 
 //----------------------Utilities--------------------//

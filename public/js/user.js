@@ -3,12 +3,14 @@ class User {
         pref_obj = pref_obj || null;
         admin = admin || null;
 
+        //Define the User's attributes. 
         this.admin = 0;
-        this.authenticated = 0;
+        this.isAuthenticated = 0;
         this.email = null;
         this.pref_obj = null;
         this.auth_obj = null;
 
+        //Based on given args, determine if initUser or authenticate needs to be called.
         if(pref_obj == null || admin == null) {
             this.auth_obj = auth_obj;
             this.authenticate();
@@ -47,9 +49,10 @@ class User {
                     console.error("Error in Authenticate: " + res.errorMessage);
                     return;
                 }
-                this.authenticated = true;
-                console.log(this)
+                this.isAuthenticated = true;
+                this.pref_obj = res['pref_obj'];
                 this.email = this.auth_obj['email'];   
+                this.admin = res['admin'];
                 this.createAuthCookie();             
             },
             error: function(e) {
@@ -80,7 +83,10 @@ class User {
             "admin":"$input.path('$.admin')"
         }*/
 
-        //TO DO: Check if email is unique. If not, return. 
+        if(!emailIsUnique) {
+            console.
+        }
+        
 
         let register_obj = {
             "email":this.email,
@@ -114,7 +120,7 @@ class User {
     }
 
     createAuthCookie() {
-        if(this.authenticated) {
+        if(this.isAuthenticated) {
             setCookie('email',this.email, 3);
             setCookie('admin','0',3);
         }
@@ -123,5 +129,13 @@ class User {
     logout() {
         eraseCookie('email');
         eraseCookie('admin');
+    }
+
+    //Utilities
+
+    emailIsUnique() {
+        $.get(user_config.isEmailUnique + this.email, (res) => {
+            return res;
+        })
     }
 }
