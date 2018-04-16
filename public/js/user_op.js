@@ -91,12 +91,14 @@ function login() {
             setTimeout(() => {
                 moveToTile('mainGame');
                 $('#Log_In_Btn').stopLoading();
-                $('#Log_In_Btn').css('background','#444');;
+                $('#Log_In_Btn').css('background','#444');
+                $('#loginEmail').val("");
+                $('#loginPwd').val("");
             }, 1500)
         } else {
             $('#Log_In_Btn').stopLoading("negative");
         }
-    }, 2500)
+    }, 1000)
 
 }
 
@@ -111,11 +113,13 @@ function signUp() {
                 moveToTile('mainGame');
                 $('#Sign_Up_Btn').stopLoading();
                 $('#Sign_Up_Btn').css('background','#444');
+                $('#signUpEmail').val("");
+                $('#signUpPwd').val("");
             }, 1500)
         } else {
             $('#Sign_Up_Btn').stopLoading("negative");
         }
-    }, 2500)    
+    }, 1000)    
 }
 
 
@@ -590,7 +594,7 @@ jQuery.getCurrentTile = function(tile_name) {
 
 (function($) {
     $.fn.startLoading = function() {
-        $(this).attr('name',$(this).html());
+        //$(this).attr('name',$(this).html());
         $(this).html('<i class="fas fa-cog fa-spin"></i>');
 }
 }(jQuery));
