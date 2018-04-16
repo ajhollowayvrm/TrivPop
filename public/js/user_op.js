@@ -441,7 +441,6 @@ function getScores() {
 
     $.get(scores_api.get_scores, (res) => {
         res.forEach((element) => {
-            console.log(element);
             parsed = (element['id']['S']).split('|');
             email = parsed[0];
             numberOfQuestions = parsed[1]
