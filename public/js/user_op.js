@@ -90,7 +90,8 @@ function login() {
             $('#Log_In_Btn').stopLoading("positive");
             setTimeout(() => {
                 moveToTile('mainGame');
-                $('#Log_In_Btn').stopLoading().css('background','#444');;
+                $('#Log_In_Btn').stopLoading();
+                $('#Log_In_Btn').css('background','#444');;
             }, 1500)
         } else {
             $('#Log_In_Btn').stopLoading("negative");
@@ -108,7 +109,8 @@ function signUp() {
             $('#Sign_Up_Btn').stopLoading("positive");
             setTimeout(() => {
                 moveToTile('mainGame');
-                $('#Sign_Up_Btn').stopLoading().css('background','#444');;
+                $('#Sign_Up_Btn').stopLoading();
+                $('#Sign_Up_Btn').css('background','#444');
             }, 1500)
         } else {
             $('#Sign_Up_Btn').stopLoading("negative");
@@ -345,15 +347,20 @@ function makeUrl(type, pref) {
 function getScore(pref_obj) {
     pref_obj = pref_obj || null;
 
-    obj = {
-        "user_pref":doubleToSingleParse(JSON.stringify(current_user['pref_obj'])),
-        "email":current_user['email'],
-        "answers":doubleToSingleParse(JSON.stringify(answers)),
-        "correct_answers":doubleToSingleParse(JSON.stringify(correct_answers))
-    };
-
     if(pref_obj) {
-        obj.user_pref = doubleToSingleParse(JSON.stringify(pref_obj))
+        var obj = {
+            "user_pref":doubleToSingleParse(JSON.stringify(pref_obj)),
+            "email":current_user['email'],
+            "answers":doubleToSingleParse(JSON.stringify(answers)),
+            "correct_answers":doubleToSingleParse(JSON.stringify(correct_answers))
+        };
+    } else {
+        var obj = {
+            "user_pref":doubleToSingleParse(JSON.stringify(current_user['pref_obj'])),
+            "email":current_user['email'],
+            "answers":doubleToSingleParse(JSON.stringify(answers)),
+            "correct_answers":doubleToSingleParse(JSON.stringify(correct_answers))
+        };
     }
 
 
