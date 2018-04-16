@@ -1,7 +1,8 @@
 class User {
-    constructor(email, auth_obj, pref_obj, admin) {
+    constructor(email, auth_obj, pref_obj, admin, option) {
         pref_obj = pref_obj || null;
         admin = admin || null;
+        option = option || null;
 
         //Define the User's attributes. 
         this.admin = 0;
@@ -11,7 +12,15 @@ class User {
         this.auth_obj = null;
 
         //Based on given args, determine if initUser or authenticate needs to be called.
-        if(pref_obj == null || admin == null) {
+        if(option == 'false') {
+            //Skip authentication or init. 
+            this.isAuthenticated = true; 
+            this.admin = admin
+            this.email = email
+            this.auth_obj = null;
+            this.pref_obj = pref_obj;
+        }
+        else if(pref_obj == null || admin == null) {
             this.auth_obj = auth_obj;
             this.authenticate();
         } else {
@@ -38,7 +47,7 @@ class User {
 
         $.ajax({
             type: "POST",
-            url: config.authenticate_user,
+            url: user_config.authenticate_user,
             headers: {
                 'Content-type':"application/json"
             },
@@ -76,22 +85,22 @@ class User {
         {
             "email":"$input.path('$.email')",
             "pwd":"$input.path('$.pwd')",
-            "pref#ques":"$input.path('$.pref#ques')",
+            "prefNoQues":"$input.path('$.prefNoQues')",
             "prefcat":"$input.path('$.prefcat')",
             "prefdiff":"$input.path('$.prefdiff')",
             "preftype":"$input.path('$.preftype')",
             "admin":"$input.path('$.admin')"
         }*/
 
-        if(!emailIsUnique) {
-            console.
+        if(!this.emailIsUnique) {
+            console.error("Email is not unique.")
         }
         
 
         let register_obj = {
             "email":this.email,
             "pwd":this.auth_obj['pwd'],
-            "pref#ques":this.pref_obj['pref#ques'],
+            "prefNoQues":this.pref_obj['prefNoQues'],
             "prefcat":this.pref_obj['prefcat'],
             "prefdiff":this.pref_obj['prefdiff'],
             "preftype":this. pref_obj['preftype'],
@@ -100,7 +109,7 @@ class User {
 
         $.ajax({
             type: "POST",
-            url: config.create_user,
+            url: user_config.create_user,
             headers: {
                 'Content-type':"application/json"
             },

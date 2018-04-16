@@ -4,16 +4,16 @@ html {
 
 .main-container {
     width: 1000px;
-    height: 450px;
+    height: auto;
     border: 9px solid black;
     border-radius: 4px;
     margin: auto;
     position: absolute;
     text-align: center;
-    top: 0;
+    top: 100px;
     left: 0;
     right: 0;
-    bottom: 30%;
+    bottom: auto;
     background: lightseagreen;
 }
 
@@ -26,7 +26,7 @@ div.main-container[tile="signUp"] {
     font-family: Arial, Helvetica, sans-serif;
     color: black;
     height: 675px;
-    top: 15%;
+    top: 10%;
 }
 
 div.main-container[tile="signUp"] h1,h2,h3,h4,h5,h6,p {
@@ -61,6 +61,12 @@ div.main-container[tile="signUp"] h1,h2,h3,h4,h5,h6,p {
     transition: all .2s ease;
 }
 
+.forwardArrow {
+    float:right; 
+    white-space: pre;
+    transition: all .2s ease;
+}
+
 .backArrow:hover {
     transform: scale(1.2);
   }
@@ -70,8 +76,32 @@ div.main-container[tile="signUp"] h1,h2,h3,h4,h5,h6,p {
     transform: scale(1.0);
   }
 
+  .forwardArrow:hover {
+    transform: scale(1.2);
+  }
 
-.main-wrapper {
+.forwardArrow:active {
+    transition: all .1s ease;
+    transform: scale(1.0);
+  }
+
+#logoutButton {
+    float:right; 
+    white-space: pre;
+    transition: all .2s ease;
+}
+
+#logoutButton:hover {
+    transform: scale(1.5);
+  }
+
+#logoutButton:active {
+    transition: all .1s ease;
+    transform: scale(1.0);
+  }
+
+
+.two-box {
     display: grid;
     grid-template-columns: 50px 300px 300px 50px;
     grid-gap: 100px;
@@ -89,6 +119,17 @@ div.main-container[tile="signUp"] h1,h2,h3,h4,h5,h6,p {
       height: 30px;
   }  
 
+  .four-box {
+    display: grid;
+    grid-template-columns: auto 300px 20px 300px auto;
+    grid-template-rows: auto;
+    grid-template-areas: 
+        ". button1 . button2 ."
+        ". button3 . button4 .";
+    grid-gap: 25px;
+    color: #444;
+  }
+
   .box {
     background: #444;
     color: #fff;
@@ -97,7 +138,31 @@ div.main-container[tile="signUp"] h1,h2,h3,h4,h5,h6,p {
     padding: 20px;
     font-size: 150%;
     transition: all .2s ease;
+
   }
+
+  .mainGame-box{
+    background: #444;
+    color: #fff;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 20px;
+    font-size: 150%;
+    transition: all .2s ease;
+  }
+
+  .one {
+      grid-area: button1;
+  }
+  .two {
+    grid-area: button2;
+}
+.three {
+    grid-area: button3;
+}
+.four {
+    grid-area: button4;
+}
   
   .login-box {
       max-width: 200px;
@@ -113,8 +178,34 @@ div.main-container[tile="signUp"] h1,h2,h3,h4,h5,h6,p {
     transform: scale(1.0);
   }
 
+  #scoresDiv {
+      display: grid;
+      grid-template-columns: 45% 46%;
+      grid-gap: 67px;
+  }
 
 
   .prehide {
       display: none;
+  }
+
+  .sub-text {
+      font-size: 15px;
+      color: white;
+      font-style: italic;
+  }
+
+  .main-game-wrapper .box {
+      color: lightskyblue;
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+  }
+
+  .question {
+      padding-right: 50px;
+  }
+
+  .disabled {
+      opacity: 0.5;
+      transform: none !important;  
+      transition: none !important;
   }
