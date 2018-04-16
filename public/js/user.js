@@ -58,6 +58,17 @@ class User {
                     console.error("Error in Authenticate: " + res.errorMessage);
                     return;
                 }
+
+                if(res == "Incorrect Email") {
+                    alert("Incorrect Email");
+                    return;
+                }
+
+                if(res == "Incorrect Password") {
+                    alert("Incorrect Password");
+                    return;
+                }
+
                 this.isAuthenticated = true;
                 this.pref_obj = res['pref_obj'];
                 this.email = this.auth_obj['email'];   
