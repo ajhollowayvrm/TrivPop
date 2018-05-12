@@ -399,6 +399,8 @@ function getScore(pref_obj) {
 
 function endGame() {
     $("[tile*='game']:not(mainGame)").remove();
+    answers.length = 0;
+    correct_answers.length = 0;
     moveToTile('mainGame');
 }
 

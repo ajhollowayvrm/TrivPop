@@ -1,12 +1,8 @@
 {
-  "name": "trivpop-dev",
+  "name": "trivpop",
   "version": "1.0.0",
-  "description": "A trivia game for IT 410.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"node index.js"
-  },
+  "private": true,
+  "description": "A trivia game.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ajhollowayvrm/TrivPop.git"
@@ -26,6 +22,10 @@
   "homepage": "https://github.com/ajhollowayvrm/TrivPop#readme",
   "dependencies": {
     "express": "^4.16.2",
-    "jquery": "^3.3.0"
+    "jquery": "^3.3.0",
+    "ejs": "latest"
+  },
+  "scripts": {
+    "start":"node index.js"
   }
 }
