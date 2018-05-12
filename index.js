@@ -2,14 +2,10 @@ const express = require('express')
 const path = require('path')
 const app = express()
 
-app.set('view engine', 'ejs');
-app.set('views', __dirname + '/views');
-
+app.use(express.static(path.join(__dirname,'public')))
 
 app.get('/', function (req, res) {
-    res.render('home', {
-        static_path: 'public'
-    })
+    res.sendFile(path.join(__dirname + '/home.html'));
 })
 
 var port = process.env.PORT || 3000;

@@ -22,8 +22,7 @@
   "homepage": "https://github.com/ajhollowayvrm/TrivPop#readme",
   "dependencies": {
     "express": "^4.16.2",
-    "jquery": "^3.3.0",
-    "ejs": "latest"
+    "jquery": "^3.3.0"
   },
   "scripts": {
     "start":"node index.js"
