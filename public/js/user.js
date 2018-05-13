@@ -1,3 +1,16 @@
+/*
+
+AJ Holloway
+May 2018
+
+
+This file defines the User class. Every new user creates 
+a new instance of this class. From this new instance, all 
+of the game functionalities are available.
+
+
+*/
+
 class User {
     constructor(email, auth_obj, pref_obj, admin, option) {
         pref_obj = pref_obj || null;
@@ -5,25 +18,38 @@ class User {
         option = option || null;
 
         //Define the User's attributes. 
-        this.admin = 0;
+        this.admin = 0;                 //Indicate
         this.isAuthenticated = 0;
         this.email = null;
         this.pref_obj = null;
         this.auth_obj = null;
+        this.token = null
 
         //Based on given args, determine if initUser or authenticate needs to be called.
-        if(option == 'false') {
-            //Skip authentication or init. 
+
+        /*
+        This option is for users returning to the same browser 
+        who don't need to go through the processes of being authenticated or initialized.
+        */
+        if(option == 'false') { 
+
             this.isAuthenticated = true; 
             this.admin = admin
             this.email = email
             this.auth_obj = null;
             this.pref_obj = pref_obj;
         }
+        /*
+        This option is for logging in (authenticating).
+        */
         else if(pref_obj == null || admin == null) {
             this.auth_obj = auth_obj;
             this.authenticate();
-        } else {
+        } 
+        /*
+        This option is for registering (initializing) users.
+        */
+        else {
             this.email = email;
             this.pref_obj = pref_obj;
             this.auth_obj = auth_obj;
