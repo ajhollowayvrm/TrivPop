@@ -104,22 +104,21 @@ function login() {
 
 function signUp() {
     $('#Sign_Up_Btn').startLoading();
-    current_user = new User($('#signUpEmail').val(),getAuthObj(), getPrefObj(), 'false');
-    //TO DO: Make sure email is unique. 
-    setTimeout(() => {
-        if(current_user.isAuthenticated) {
-            $('#Sign_Up_Btn').stopLoading("positive");
-            setTimeout(() => {
-                moveToTile('mainGame');
-                $('#Sign_Up_Btn').stopLoading();
-                $('#Sign_Up_Btn').css('background','#444');
-                $('#signUpEmail').val("");
-                $('#signUpPwd').val("");
-            }, 1500)
-        } else {
-            $('#Sign_Up_Btn').stopLoading("negative");
-        }
-    }, 1000)    
+    current_user = new User($('#signUpEmail').val(),getAuthObj(), getPrefObj(), 0, 'false');
+        setTimeout(() => {
+            if(current_user.isAuthenticated) {
+                $('#Sign_Up_Btn').stopLoading("positive");
+                setTimeout(() => {
+                    moveToTile('mainGame');
+                    $('#Sign_Up_Btn').stopLoading();
+                    $('#Sign_Up_Btn').css('background','#444');
+                    $('#signUpEmail').val("");
+                    $('#signUpPwd').val("");
+                }, 1500)
+            } else {
+                $('#Sign_Up_Btn').stopLoading("negative");
+            }
+        }, 1000)  
 }
 
 
