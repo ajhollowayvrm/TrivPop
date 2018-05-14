@@ -13,6 +13,8 @@ TO DO:
 
 */
 
+correct_answers = [];
+answers = [];
 
 function startGame(type) {
     formQuestions(type);
