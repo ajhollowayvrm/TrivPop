@@ -46,7 +46,7 @@ function login() {
 
 function signUp() {
     $('#Sign_Up_Btn').startLoading();
-    current_user = new User($('#signUpEmail').val(),getAuthObj(), getPrefObj(), 0, 'false');
+    current_user = new User($('#signUpEmail').val(),getAuthObj(), getPrefObj(), 0, 'true');
         setTimeout(() => {
             if(current_user.isAuthenticated) {
                 $('#Sign_Up_Btn').stopLoading("positive");

@@ -5,7 +5,7 @@ May 2018
 
 
 This file defines all of the functionality of
-basical site operations.
+basic site operations.
 
 
 */
