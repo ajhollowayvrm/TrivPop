@@ -2,7 +2,8 @@ const express = require('express')
 const path = require('path')
 const app = express()
 
-app.use(express.static(path.join(__dirname,'public')))
+app.use('/external',express.static(path.join(__dirname + '/public/')))        //Files in the Public directory.
+app.use('/internal',express.static(path.join(__dirname + '/node_modules/')))  //Files NPM installed. 
 
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + '/home.html'));

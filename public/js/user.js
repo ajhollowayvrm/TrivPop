@@ -12,13 +12,11 @@ of the game functionalities are available.
 */
 
 class User {
-    constructor(email, auth_obj, pref_obj, admin, option) {
+    constructor(email, auth_obj, pref_obj, option) {
         pref_obj = pref_obj || null;
-        admin = admin || null;
         option = option || null;
 
         //Define the User's attributes. 
-        this.admin = 0;                 //Indicate
         this.isAuthenticated = 0;
         this.email = null;
         this.pref_obj = null;
@@ -34,7 +32,6 @@ class User {
         if(option == 'false') { 
 
             this.isAuthenticated = true; 
-            this.admin = admin
             this.email = email
             this.auth_obj = null;
             this.pref_obj = pref_obj;
@@ -42,7 +39,7 @@ class User {
         /*
         This option is for logging in (authenticating).
         */
-        else if(pref_obj == null || admin == null) {
+        else if(pref_obj == null) {
             this.auth_obj = auth_obj;
             this.authenticate();
         } 
@@ -53,7 +50,6 @@ class User {
             this.email = email;
             this.pref_obj = pref_obj;
             this.auth_obj = auth_obj;
-            this.admin = admin || 0;
             this.initUser()
         }
 
@@ -63,11 +59,11 @@ class User {
 
     authenticate() {
         if(this.auth_obj.email == "" || this.auth_obj.email == undefined) {
-            console.error("User is missing an email.");
+            alertify.alert("Uh Oh!","User is missing an email.");
             return;
         }
         else if(this.auth_obj.pwd == "" || this.auth_obj.pwd == undefined) {
-            console.error("User is missing a password.");
+            alertify.alert("Uh Oh!","User is missing a password.");
             return;
         }
 
@@ -81,39 +77,38 @@ class User {
             crossOrgin: true,
             success: (res) => {
                 if(res.errorMessage) {
-                    console.error("Error in Authenticate: " + res.errorMessage);
+                    alertify.alert("Uh Oh!","Error in Authenticate: " + res.errorMessage);
                     return;
                 }
 
                 if(res == "Incorrect Email") {
-                    alert("Incorrect Email");
+                    alertify.alert("Uh Oh!","Incorrect Email");
                     return;
                 }
 
                 if(res == "Incorrect Password") {
-                    alert("Incorrect Password");
+                    alertify.alert("Uh Oh!","Incorrect Password");
                     return;
                 }
 
                 this.isAuthenticated = true;
                 this.pref_obj = res['pref_obj'];
                 this.email = this.auth_obj['email'];   
-                this.admin = res['admin'];
                 this.createAuthCookie();             
             },
             error: function(e) {
-                console.error('Error in Authenticate: ' + e);
+                alertify.alert("Uh Oh!",'Error in Authenticate: ' + e);
             }
         })
     }
 
     initUser() {
         if(this.email == "" || this.email == undefined) {
-            console.error("User is missing an email.");
+            alertify.alert("Uh Oh!","User is missing an email.");
             return;
         }
         else if(this.auth_obj['pwd'] == "" || this.auth_obj['pwd'] == undefined) {
-            console.error("User is missing a Password.");
+            alertify.alert("Uh Oh!","User is missing a Password.");
             return;
         }
         
@@ -125,12 +120,12 @@ class User {
             "prefNoQues":"$input.path('$.prefNoQues')",
             "prefcat":"$input.path('$.prefcat')",
             "prefdiff":"$input.path('$.prefdiff')",
-            "preftype":"$input.path('$.preftype')",
-            "admin":"$input.path('$.admin')"
+            "preftype":"$input.path('$.preftype')"
         }*/
 
-        if(!this.emailIsUnique) {
-            console.error("Email is not unique.")
+        if(!this.emailIsUnique()) {
+            alertify.alert("Uh Oh!","Email is not unique.")
+            return;
         }
         
 
@@ -141,7 +136,6 @@ class User {
             "prefcat":this.pref_obj['prefcat'],
             "prefdiff":this.pref_obj['prefdiff'],
             "preftype":this. pref_obj['preftype'],
-            "admin":this.admin
         }
 
         $.ajax({
@@ -154,13 +148,13 @@ class User {
             crossOrgin: true,
             success: (res) => {
                 if(res.errorMessage) {
-                    console.error("Error in InitUser: " + res.errorMessage);
+                    alertify.alert("Uh Oh!","Error in InitUser: " + res.errorMessage);
                     return;
                 }
                 this.authenticate();
             },
             error: function(e) {
-                console.error('Error in InitUser: ' + e);
+                alertify.alert("Uh Oh!",'Error in InitUser: ' + e);
             }
         })
     }
@@ -168,13 +162,11 @@ class User {
     createAuthCookie() {
         if(this.isAuthenticated) {
             setCookie('email',this.email, 3);
-            setCookie('admin','0',3);
         }
     }
 
     logout() {
         eraseCookie('email');
-        eraseCookie('admin');
     }
 
     //Utilities

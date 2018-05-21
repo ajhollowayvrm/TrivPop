@@ -15,7 +15,7 @@ current_user = null;
 custom_game_pref_obj = {};
 
 function isUserLoggedIn() {
-    if(getCookie('email') && getCookie('admin')) {
+    if(getCookie('email')) {
         var msg = "You are logged in as " + getCookie('email') + ". <br> Would you like to continue as this user?";
         $('.alreadyAuthMsg').html(msg);
         moveToTile('alreadyAuthenticated');
@@ -46,7 +46,7 @@ function login() {
 
 function signUp() {
     $('#Sign_Up_Btn').startLoading();
-    current_user = new User($('#signUpEmail').val(),getAuthObj(), getPrefObj(), 0, 'true');
+    current_user = new User($('#signUpEmail').val(),getAuthObj(), getPrefObj(), 'true');
         setTimeout(() => {
             if(current_user.isAuthenticated) {
                 $('#Sign_Up_Btn').stopLoading("positive");
@@ -96,7 +96,7 @@ function getAuthObj() {
             break;
 
         default:
-            console.error('Specified Tile does not have defined auth object.');
+            alertify.alert("Uh Oh!",'Specified Tile does not have defined auth object.');
             break;
     }
 
@@ -106,7 +106,7 @@ function getUser(email, btn) {
     btn = btn || null;
 
     $.get(user_config.get_user + email, (res) => {
-        current_user = new User(res['email'], null, res['pref_obj'], res['admin'], 'false')
+        current_user = new User(res['email'], null, res['pref_obj'], 'false')
         $(btn).stopLoading('positive');
     })
     .fail((msg) => {
@@ -162,7 +162,7 @@ function updatePreferences(btn) {
         },
         error: function(e) {
             $(btn).stopLoading('negative')
-            console.error('Error in updatePreferences: ' + e['errorMessage']);
+            alertify.alert("Uh Oh!",'Error in updatePreferences: ' + e['errorMessage']);
         }
     })
 }
