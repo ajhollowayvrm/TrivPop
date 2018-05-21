@@ -26,6 +26,6 @@
     "alertifyjs": "latest"
   },
   "scripts": {
-    "start": "npm install && node index.js"
+    "start": "node index.js"
   }
 }
