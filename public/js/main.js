@@ -32,7 +32,6 @@ $(document).ready(function() {
         moveToTile('main');
     })
     $('.logoutButton').click(function() {
-        eraseCookie('admin');
         eraseCookie('email');
         moveToTile('main')
     })
@@ -42,7 +41,6 @@ $(document).ready(function() {
         moveToTile('mainGame');
     })
     $('#already_no').click(function() {
-        eraseCookie('admin');
         eraseCookie('email');
         moveToTile('main')
     })
