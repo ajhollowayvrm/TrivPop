@@ -37,8 +37,7 @@ $(document).ready(function() {
     })
     $('#already_yes').click(function() {
         $(this).startLoading();
-        getUser(getCookie('email'));
-        moveToTile('mainGame');
+        getUser(getCookie('email'), this, 'mainGame');
     })
     $('#already_no').click(function() {
         eraseCookie('email');

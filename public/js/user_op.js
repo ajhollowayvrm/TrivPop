@@ -102,14 +102,30 @@ function getAuthObj() {
 
 }
 
-function getUser(email, btn) {
+function getUser(email, btn, tile) {
     btn = btn || null;
+    tile = tile || null
 
     $.get(user_config.get_user + email, (res) => {
-        current_user = new User(res['email'], null, res['pref_obj'], 'false')
-        $(btn).stopLoading('positive');
+        if(res.errorMessage) {
+            current_user = null;
+            eraseCookie('email');
+        } else {
+            current_user = new User(res['email'], null, res['pref_obj'], 'false')
+        }
+        if(tile) {
+            if(current_user) {
+                $(btn).stopLoading('positive');
+                moveToTile(tile);
+            } else {
+                alertify.alert('User Loading Failed.')
+                moveToTile('main');
+            }
+        }
     })
     .fail((msg) => {
+        alertify.alert(msg);
+        moveToTile('main');
         $(btn).stopLoading('nagative');
     })
 

@@ -42,9 +42,9 @@
             <div class="login-wrapper">
                 <div></div>
                 <div id='loginForm' class='login-wrapper'>
-                    <p>Email</p><input type="email" name="email" id="loginEmail" placeholder="Enter your email here.">
+                    <p class='loginText'>Email</p><input type="email" name="email" id="loginEmail" placeholder="Enter your email here.">
                     <br>
-                    <p>Password</p><input type="password" name="pwd" id="loginPwd" placeholder="Enter your password here.">
+                    <p class='loginText'>Password</p><input type="password" name="pwd" id="loginPwd" placeholder="Enter your password here.">
                     <br>
                     <input type="checkbox" id='showBox'>Show Password</input>
                     <br><br><br><br>
@@ -186,6 +186,7 @@
             <br><br>
             <h2 id='main-title'>Scores</h2>
             <br>
+            <div id='scores-loader'></div>
             <div style='text-align: center;' id='scoresDiv'>
                 <div id='individualScores'></div>
                 <div id='overallScores'></div>
